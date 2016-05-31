@@ -1,5 +1,6 @@
 package test.raddress.prove;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -7,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import redis.clients.jedis.Jedis;
 
-@Ignore
 public class RedisTest {
 
     static {
@@ -20,13 +20,12 @@ public class RedisTest {
 
     @Test
     public void TestConneciton() {
-        log.info("Bella zi!");
-
-        try (Jedis redis = new Jedis("104.155.40.33")) {
-            //redis.set("test:java: 2", "figàta!");
-            //log.info("Fatto?");
-
+        try (Jedis redis = new Jedis("localhost")) {
+            String val = "figàta!";            
+            redis.set("test:java: 2", val);
             log.info(redis.get("test:java: 2"));
+            
+            Assert.assertEquals(val, redis.get("test:java: 2"));
         }
 
     }
